@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Arrow
   - Ball
+  - Cups
+  - Game Manager
+  - Lose Collider
   layers:
   - Default
   - TransparentFX

@@ -43,6 +43,12 @@ public class TableCreator : MonoBehaviour
         table.transform.localScale = new Vector3(length * 0.5f, 1, length);
         table.SetActive(true);
 
+        // Cups rotation
+
+        GameObject cups = GameObject.FindGameObjectWithTag("Cups");
+
+        cups.transform.LookAt(tableBegin);
+
         Debug.Log("Creating Table");
     }
 
