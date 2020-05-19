@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Arrow
   - Ball
+  - Cups
   layers:
   - Default
   - TransparentFX
