@@ -15,10 +15,17 @@ public class SelectionManager : MonoBehaviour
     [Header("Selected")]
     public bool firstSelected = false;
     public bool secondSelected = false;
+
+    [Header("Popups")]
+    public Image bg;
+    public Text[] txts;
+    private int lastText = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bg.enabled = false;
+
+
     }
 
     // Update is called once per frame
@@ -65,16 +72,22 @@ public class SelectionManager : MonoBehaviour
         else
             player1.GetComponent<RawImage>().texture = tex;
 
+
+  
     }
 
     public void SelectedFirst()
     {
         firstSelected = true;
+        bg.enabled = false;
+        txts[lastText].enabled = false;
     }
 
     public void SelectedSecond()
     {
-        secondSelected = true;
+        secondSelected = true; 
+        bg.enabled = false;
+        txts[lastText].enabled = false;
     }
 
     public void Fight()
@@ -83,5 +96,14 @@ public class SelectionManager : MonoBehaviour
         {
             Debug.Log("Enter to Drunking arena");
         }
+    }
+
+    public void HoverPopUp(int index)
+    {
+        bg.enabled = true;
+
+        txts[lastText].enabled = false;
+        txts[index].enabled = true;
+        lastText = index;
     }
 }
