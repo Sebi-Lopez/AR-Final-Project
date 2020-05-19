@@ -20,48 +20,23 @@ public class SelectionManager : MonoBehaviour
     public Image bg;
     public Text[] txts;
     private int lastText = 0;
+
+    [Header("Game Canvas")]
+    public Canvas selection_canvas;
+    public Canvas game_canvas;
+
     // Start is called before the first frame update
     void Start()
     {
         bg.enabled = false;
-
+        game_canvas.enabled = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var ray2d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit hit;
-        RaycastHit2D hit2d = Physics2D.Raycast(ray2d, Vector2.zero);
-
-        if(hit2d.collider != null)
-        {
-            Debug.Log("Enters to character");
-            //var selection = hit2d.transform;
-
-            //if (selection.CompareTag("Character"))
-            //{
-            //    var image = selection.GetComponent<RawImage>();
-            //    player1.texture = image.texture;
-            //}
-        }
-
-
-        //if (Physics2D.Raycast(ray2d, Vector2.zero))
-        //{
-        //    Debug.Log("Detected GameObject");
-        //    var selection = hit.transform;
-        //    if(selection.CompareTag("Character"))
-        //    {
-        //        Debug.Log("Enters to character");
-        //        var image = selection.GetComponent<RawImage>();
-        //        player1.texture = image.texture;
-
-        //    }
-        //}
+       
     }
 
     public void SelectCharacter(Texture2D tex)
@@ -94,7 +69,8 @@ public class SelectionManager : MonoBehaviour
     {
         if(firstSelected && secondSelected)
         {
-            Debug.Log("Enter to Drunking arena");
+            selection_canvas.enabled = false;
+            game_canvas.enabled = true;
         }
     }
 
