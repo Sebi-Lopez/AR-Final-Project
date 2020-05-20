@@ -33,6 +33,9 @@ public class launchball : MonoBehaviour
 
     public void ThrowBall(Vector3 dir, int impulse = 1)
     {
+        if(rigid_b == null)
+            rigid_b = gameObject.GetComponent<Rigidbody>();
+
         rigid_b.useGravity = true;
         //rigid_b.AddForce(Vector3.forward);
         rigid_b.AddForce(dir.x, dir.y, dir.z, ForceMode.Impulse);
@@ -41,6 +44,9 @@ public class launchball : MonoBehaviour
 
     public void ResetBall()
     {
+        if (rigid_b == null)
+            rigid_b = gameObject.GetComponent<Rigidbody>();
+
         rigid_b.velocity = Vector3.zero;
         rigid_b.useGravity = false;
         transform.position = Vector3.zero;

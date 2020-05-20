@@ -49,6 +49,7 @@ public class TableCreator : MonoBehaviour
 
         cups.transform.LookAt(tableBegin);
 
+        GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().RestartSystem();
         Debug.Log("Creating Table");
     }
 
