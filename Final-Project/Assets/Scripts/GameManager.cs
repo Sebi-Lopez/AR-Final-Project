@@ -159,6 +159,9 @@ public class GameManager : MonoBehaviour
     public void ShutSystemDown()
     {
         Debug.Log("Shutting System down");
+        if (gameHolder == null)
+            return;
+
         gameHolder.SetActive(false);
     }
 

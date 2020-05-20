@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Sebi_Scene.unity
+    guid: b96bd8ff057060d42b53be2980bf23d7
+  - enabled: 1
+    path: Assets/Scenes/winscene.unity
+    guid: af04873b3c51f264ea2055cb8058826d
   m_configObjects: {}
