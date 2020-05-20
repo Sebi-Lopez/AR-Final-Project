@@ -25,7 +25,7 @@ public class rotate_from_mouse : MonoBehaviour
 
     #region vars
     public float horizontalSpeed = 200;
-    public float verticalSpeed = 200;
+    public float verticalSpeed = 300;
     private bool changeH_dir = false;
     private bool changeV_dir = false;
     private float verticalLimits=20;
@@ -47,6 +47,10 @@ public class rotate_from_mouse : MonoBehaviour
         initial_arrow_scale = arrow_trans.localScale;
     }
 
+    public void ResetStates()
+    {
+        launch_states = SHOT.HORIZONTAL;
+    }
 
     // Update is called once per frame
     void Update()
@@ -108,6 +112,7 @@ public class rotate_from_mouse : MonoBehaviour
         }
         else if(Input.GetKeyUp(KeyCode.Space) && times_pressed >0)
         {
+            pressed = false;
             launch_states = SHOT.LAUNCH;
         }
         
@@ -224,7 +229,10 @@ public class rotate_from_mouse : MonoBehaviour
 
     }
 
-
+    //public void ParentRotator()
+    //{
+    //    arrow.transform.parent = GameObject.FindGameObjectWithTag("BallHolder").GetComponent<Transform>();
+    //}
     void ResetBar()
     {
         //arrow.transform.position.x = 0.0f;
@@ -232,6 +240,7 @@ public class rotate_from_mouse : MonoBehaviour
         arrow.transform.localScale = new Vector3(initial_arrow_scale.x, initial_arrow_scale.y, initial_arrow_scale.z);
 
         arrow.transform.rotation = Quaternion.Euler(90,0,50);
-        //arrow.SetActive(false);
+        arrow.SetActive(false);
+       // arrow.transform.parent = null;
     }
 }
