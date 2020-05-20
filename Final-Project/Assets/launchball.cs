@@ -16,6 +16,7 @@ public class launchball : MonoBehaviour
     #endregion
 
 
+    bool already_hit = false;
 
     void Start()
     {
@@ -45,6 +46,7 @@ public class launchball : MonoBehaviour
         //rigid_b.AddForce(Vector3.forward);
         rigid_b.AddForce(dir.x, dir.y, dir.z, ForceMode.Impulse);
         thrown = true;
+        already_hit = false;
     }
 
     public void ResetBall()
@@ -71,8 +73,13 @@ public class launchball : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Cup Collider"))
         {
-            GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().Hit();
-            collision.transform.parent.gameObject.SetActive(false);
+            if (!already_hit)
+            {
+                Debug.Log("On Collision Enter CUPP");
+                already_hit = true;
+                GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().Hit();
+                collision.transform.parent.gameObject.SetActive(false);
+            }
         }
     }
 }
