@@ -64,6 +64,7 @@ public class launchball : MonoBehaviour
         else if(collision.gameObject.CompareTag("Cup Collider"))
         {
             GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().Hit();
+            collision.transform.parent.gameObject.SetActive(false);
         }
     }
 }
