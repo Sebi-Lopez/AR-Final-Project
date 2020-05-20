@@ -10,7 +10,8 @@ A Beer Pong Game made with Unity & Vuforia from Aumented Reality assignment.
 ## Slides
 * [Presentation](https://docs.google.com/presentation/d/17Syn5OYOnaQVtpKFO1lcjpLfW3PZOO-FVCG_j9a2rjE/edit?usp=sharing)
 
-## Live Demo
+## Video
+* [Demo](https://youtu.be/ChqBJsNtsgE)
 
 ## GitHub
 * [Repository](https://github.com/Sebi-Lopez/AR-Final-Project)
