@@ -3995,7 +3995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1349059036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4821,7 +4821,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746474565}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 26b3c6775f3d0b14f9b67946566f5ec9, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

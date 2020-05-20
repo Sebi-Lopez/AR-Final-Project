@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine("GetHit");
 
 
-        NextTurn();
+        NextTurn(false);
         
     }
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         NextTurn();
     }
 
-    public void NextTurn()
+    public void NextTurn(bool change_player = true)
     {
         // Check if the game is over
         if (current_player.score >= MAX_SCORE)
@@ -97,7 +97,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Change current player
-        current_player = current_player == player_1 ? player_2 : player_1;
+        if(change_player)
+            current_player = current_player == player_1 ? player_2 : player_1;
 
         // Update UI Layout
         UILayout.UpdateUILayout(current_player == player_1 ? 1 : 2, current_player.score, current_player.tex);
