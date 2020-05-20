@@ -29,12 +29,14 @@ public class GameManager : MonoBehaviour
     Player current_player;
 
     GameUILayout UILayout;
+    GameFeedback UIFeedback;
 
     public int MAX_SCORE = 8; 
 
     void Start()
     {
         UILayout = GameObject.Find("Player Layout").GetComponent<GameUILayout>();
+        UIFeedback = GameObject.Find("GameFeel").GetComponent<GameFeedback>();
 
         // Chosing random player
         current_player = Random.Range(0, 1) == 0 ? player_1 : player_2;
@@ -55,9 +57,10 @@ public class GameManager : MonoBehaviour
         current_player.score++;
 
         // TODO: Update player UI score
-        
-        
+
         // TODO: Show PLAYER X DRINKS!!! 
+        StartCoroutine("GetHit");
+      
 
         NextTurn();
 
@@ -66,7 +69,11 @@ public class GameManager : MonoBehaviour
     public void Miss()
     {
         // TODO: Show You Missed Text
+        StartCoroutine("GetMiss");
+       
+   
         Debug.Log("YOU MISSED LOOSER");
+
         NextTurn();
     }
 
@@ -101,4 +108,27 @@ public class GameManager : MonoBehaviour
         player_2.tex = tex2;
     }
 
+    IEnumerator GetHit()
+    {
+        UIFeedback.hit_txt.enabled = true;
+
+        if(current_player == player_1)
+        {
+            UIFeedback.hit_txt.text = "WELL DONE!\n PLAYER 2 DRINKS!";
+        }
+        else
+        {
+            UIFeedback.hit_txt.text = "WELL DONE!\n PLAYER 1 DRINKS!";
+        }
+
+        yield return new WaitForSeconds(3);
+        UIFeedback.hit_txt.enabled = false;
+    }
+
+    IEnumerator GetMiss()
+    {
+        UIFeedback.miss_txt.enabled = true;
+        yield return new WaitForSeconds(3);
+        UIFeedback.miss_txt.enabled = false;
+    }
 }
