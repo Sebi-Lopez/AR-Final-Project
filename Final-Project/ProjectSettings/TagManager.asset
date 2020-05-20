@@ -12,6 +12,7 @@ TagManager:
   - Character
   - Cup Collider
   - GameFeel
+  - BallHolder
   layers:
   - Default
   - TransparentFX
