@@ -26,6 +26,12 @@ public class SelectionManager : MonoBehaviour
     public Canvas game_canvas;
 
     private GameManager GM;
+
+    [Header("Type Character")]
+    public int  char_type_1 = 0;
+    public int char_type_2 = 0;
+    private int current_type = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +62,7 @@ public class SelectionManager : MonoBehaviour
         firstSelected = true;
         bg.enabled = false;
         txts[lastText].enabled = false;
+        char_type_1 = current_type;
     }
 
     public void SelectedSecond()
@@ -63,6 +70,7 @@ public class SelectionManager : MonoBehaviour
         secondSelected = true; 
         bg.enabled = false;
         txts[lastText].enabled = false;
+        char_type_2 = current_type;
     }
 
     public void Fight()
@@ -71,7 +79,7 @@ public class SelectionManager : MonoBehaviour
         {
             selection_canvas.enabled = false;
             game_canvas.enabled = true;
-            GM.SetPlayersChars(0, 0);
+            GM.SetPlayersChars(char_type_1, char_type_2, (Texture2D)player1.texture, (Texture2D)player2.texture);
             GM.NextTurn();
         }
     }
@@ -83,5 +91,10 @@ public class SelectionManager : MonoBehaviour
         txts[lastText].enabled = false;
         txts[index].enabled = true;
         lastText = index;
+    }
+
+    public void SetCharacterType(int type)
+    {
+        current_type = type; 
     }
 }

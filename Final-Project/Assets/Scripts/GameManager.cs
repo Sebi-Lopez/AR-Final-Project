@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         public int score = 0;
         public CHAR character = CHAR.None;
+        public Texture2D tex;
     }
 
     Player player_1 = new Player();
@@ -83,10 +84,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SetPlayersChars(int player1, int player2)
+    public void SetPlayersChars(int player1, int player2, Texture2D tex1, Texture2D tex2)
     {
         player_1.character = (CHAR)player1;
         player_2.character = (CHAR)player2;
+
+        player_1.tex = tex1;
+        player_2.tex = tex2;
     }
 
 }
