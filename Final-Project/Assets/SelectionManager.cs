@@ -59,6 +59,8 @@ public class SelectionManager : MonoBehaviour
 
     public void SelectedFirst()
     {
+        if (player1.GetComponent<RawImage>().texture == null)
+            return;
         firstSelected = true;
         bg.enabled = false;
         txts[lastText].enabled = false;
@@ -67,6 +69,8 @@ public class SelectionManager : MonoBehaviour
 
     public void SelectedSecond()
     {
+        if (player2.GetComponent<RawImage>().texture == null)
+            return;
         secondSelected = true; 
         bg.enabled = false;
         txts[lastText].enabled = false;
