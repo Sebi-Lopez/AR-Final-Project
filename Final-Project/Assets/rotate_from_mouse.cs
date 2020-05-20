@@ -10,13 +10,16 @@ public class rotate_from_mouse : MonoBehaviour
 
     [SerializeField]
     private GameObject direction_bar;
+
+    [SerializeField]
+    private int max_intensity = 20;
     enum SHOT
     {
         HORIZONTAL,
         VERTICAL,
         INTENSITY,
         LAUNCH,
-        LAUNCEHD
+        LAUNCHED
     }
     SHOT launch_states = SHOT.HORIZONTAL;
 
@@ -30,9 +33,9 @@ public class rotate_from_mouse : MonoBehaviour
     private bool pressed = false;
     //private Transform arrow_trans;
     private Vector3 initial_arrow_scale;
-    private float max_intensity;
     private int max_time_pressed = 500;
     private Transform arrow_trans;
+
     #endregion
 
 
@@ -64,7 +67,8 @@ public class rotate_from_mouse : MonoBehaviour
             case SHOT.LAUNCH:
                 LaunchBall();
                 break;
-            case SHOT.LAUNCEHD:
+            case SHOT.LAUNCHED:
+                ResetBar();
                 break;
 
         }
@@ -105,18 +109,28 @@ public class rotate_from_mouse : MonoBehaviour
         else if(Input.GetKeyUp(KeyCode.Space) && times_pressed >0)
         {
             launch_states = SHOT.LAUNCH;
-            arrow_trans.lossyScale.Scale(initial_arrow_scale);
         }
         
     }
 
-    void VisualFeedBack()
+    void VisualFeedBack() 
     {
         //conversio dels times a la escala
 
-        double updated_scale = times_pressed * ( initial_arrow_scale.y) / 500;
-        Debug.Log(updated_scale);
-        arrow_trans.lossyScale.Set(arrow_trans.lossyScale.x, (float)updated_scale, arrow_trans.lossyScale.z);
+        float updated_scale = times_pressed * ( initial_arrow_scale.y) / 500.0f;
+        updated_scale = initial_arrow_scale.y - updated_scale;
+
+        if(updated_scale < 0.1f*initial_arrow_scale.y)
+            arrow.transform.localScale = new Vector3(arrow_trans.localScale.x, arrow_trans.localScale.y, arrow_trans.localScale.z);
+
+        else arrow.transform.localScale = new Vector3(arrow_trans.localScale.x, updated_scale, arrow_trans.localScale.z);
+
+        //Color color;
+        //color.a = 1;
+        //color.r = times_pressed * 255 / 500;
+        //color.g = 0;
+        //color.b = 0;
+        //direction_bar.GetComponent<Material>().SetColor("_Color",color);
 
 
        //Vector3 scala = max_time_pressed* arr
@@ -130,14 +144,26 @@ public class rotate_from_mouse : MonoBehaviour
         vec.y = arrow.transform.rotation.x;
         vec.z = arrow.transform.rotation.z;
         //vec.Normalize();
-        launch_states = SHOT.LAUNCEHD;
+        launch_states = SHOT.LAUNCHED;
 
         Vector3 rotated_vec;
         rotated_vec.x = vec.x;
+
+
+        //////Z axis
+        //float rad_angle = -90 * Mathf.PI / 180;
+        //rotated_vec.x = vec.x * Mathf.Cos(rad_angle) - vec.y * Mathf.Sin(rad_angle);
+        //rotated_vec.y = vec.x * Mathf.Sin(rad_angle) + vec.y * Mathf.Cos(rad_angle);
+
+        //X axis
         float rad_angle = 50 * Mathf.PI / 180;
         rotated_vec.y = vec.y * Mathf.Cos(rad_angle)-vec.z*Mathf.Sin(rad_angle);
         rotated_vec.z = vec.y * Mathf.Sin(rad_angle) + vec.z * Mathf.Cos(rad_angle);
-        script.ThrowBall(rotated_vec*10,1);
+
+        float relative_intensity = times_pressed * max_intensity / max_time_pressed;
+
+
+        script.ThrowBall(rotated_vec*relative_intensity,1);
 
 
         // 50* Mathf.PI / 180
@@ -196,5 +222,16 @@ public class rotate_from_mouse : MonoBehaviour
     {
         arrow.transform.Rotate(Vector3.right * verticalSpeed * Time.deltaTime);
 
+    }
+
+
+    void ResetBar()
+    {
+        //arrow.transform.position.x = 0.0f;
+        times_pressed = 0;
+        arrow.transform.localScale = new Vector3(initial_arrow_scale.x, initial_arrow_scale.y, initial_arrow_scale.z);
+
+        arrow.transform.rotation = Quaternion.Euler(90,0,50);
+        arrow.SetActive(false);
     }
 }

@@ -8,7 +8,7 @@ public class launchball : MonoBehaviour
     Rigidbody rigid_b;
 
     [SerializeField] private float throw_force;
-
+    [SerializeField] private GameObject rotator;
     #region private
     private bool thrown = false;
     #endregion
@@ -37,5 +37,13 @@ public class launchball : MonoBehaviour
         //rigid_b.AddForce(Vector3.forward);
         rigid_b.AddForce(dir.x, dir.y, dir.z, ForceMode.Impulse);
         thrown = true;
+    }
+    void ResetBall()
+    {
+        rigid_b.velocity = Vector3.zero;
+        rigid_b.useGravity = false;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        rotator.SetActive(true);
     }
 }
