@@ -11,8 +11,6 @@ public class TableCreator : MonoBehaviour
     public bool activeEnd = false;
     public bool activeBegin = false;
 
-    public GameObject[] cups;
-
     public void CreateTable()
     {
         Debug.Log("Trying to create Table");
@@ -46,10 +44,11 @@ public class TableCreator : MonoBehaviour
         table.SetActive(true);
 
         // Cups rotation
-        foreach (GameObject cup in cups)
-            cup.transform.LookAt(tableBegin);
 
-        GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().RestartSystem();
+        GameObject cups = GameObject.FindGameObjectWithTag("Cups");
+
+        cups.transform.LookAt(tableBegin);
+
         Debug.Log("Creating Table");
     }
 

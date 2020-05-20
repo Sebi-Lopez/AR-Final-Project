@@ -25,10 +25,10 @@ public class rotate_from_mouse : MonoBehaviour
 
     #region vars
     public float horizontalSpeed = 200;
-    public float verticalSpeed = 300;
+    public float verticalSpeed = 200;
     private bool changeH_dir = false;
     private bool changeV_dir = false;
-    private float verticalLimits=20;
+    public float verticalLimits=20;
     private int times_pressed = 0;
     private bool pressed = false;
     //private Transform arrow_trans;
@@ -44,13 +44,9 @@ public class rotate_from_mouse : MonoBehaviour
         arrow = GameObject.FindGameObjectWithTag("Arrow");
         ball = GameObject.FindGameObjectWithTag("Ball");
         arrow_trans = arrow.GetComponent<Transform>();
-        initial_arrow_scale = arrow_trans.localScale;
+        initial_arrow_scale = arrow_trans.lossyScale;
     }
 
-    public void ResetStates()
-    {
-        launch_states = SHOT.HORIZONTAL;
-    }
 
     // Update is called once per frame
     void Update()
@@ -112,7 +108,6 @@ public class rotate_from_mouse : MonoBehaviour
         }
         else if(Input.GetKeyUp(KeyCode.Space) && times_pressed >0)
         {
-            pressed = false;
             launch_states = SHOT.LAUNCH;
         }
         
@@ -125,7 +120,7 @@ public class rotate_from_mouse : MonoBehaviour
         float updated_scale = times_pressed * ( initial_arrow_scale.y) / 500.0f;
         updated_scale = initial_arrow_scale.y - updated_scale;
 
-        if(updated_scale < 0.2f*initial_arrow_scale.y)
+        if(updated_scale < 0.1f*initial_arrow_scale.y)
             arrow.transform.localScale = new Vector3(arrow_trans.localScale.x, arrow_trans.localScale.y, arrow_trans.localScale.z);
 
         else arrow.transform.localScale = new Vector3(arrow_trans.localScale.x, updated_scale, arrow_trans.localScale.z);
@@ -229,10 +224,7 @@ public class rotate_from_mouse : MonoBehaviour
 
     }
 
-    //public void ParentRotator()
-    //{
-    //    arrow.transform.parent = GameObject.FindGameObjectWithTag("BallHolder").GetComponent<Transform>();
-    //}
+
     void ResetBar()
     {
         //arrow.transform.position.x = 0.0f;
@@ -241,6 +233,5 @@ public class rotate_from_mouse : MonoBehaviour
 
         arrow.transform.rotation = Quaternion.Euler(90,0,50);
         arrow.SetActive(false);
-       // arrow.transform.parent = null;
     }
 }
