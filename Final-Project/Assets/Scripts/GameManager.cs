@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     public void Miss()
     {
         // TODO: Show You Missed Text
-
+        Debug.Log("YOU MISSED LOOSER");
         NextTurn();
     }
 
@@ -87,8 +87,8 @@ public class GameManager : MonoBehaviour
         // Update UI Layout
         UILayout.UpdateUILayout(current_player == player_1 ? 1 : 2, current_player.score, current_player.tex);
 
-        // TODO: Reset Ball
-
+        // Reset Ball
+        GameObject.FindGameObjectWithTag("Ball").GetComponent<launchball>().ResetBall();
 
     }
 
