@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     {
         None = 0,
         Ripoll,
-        Etepe, 
+        Etepe,
         Simon,
-        Rivera, 
+        Rivera,
         Negrazo,
-        Piter, 
+        Piter,
         Yikes
     }
 
@@ -28,21 +28,17 @@ public class GameManager : MonoBehaviour
 
     Player current_player;
 
-    GameUILayout UILayout;
-    GameFeedback UIFeedback;
+    public GameUILayout UILayout;
+    public GameFeedback UIFeedback;
 
     public GameObject gameHolder;
-    public GameUILayout UILayout;
     public GameObject ball;
     public GameObject cups_player_1;
     public GameObject cups_player_2;
-    public int MAX_SCORE = 8; 
+    public int MAX_SCORE = 8;
 
     void Start()
     {
-        UILayout = GameObject.Find("Player Layout").GetComponent<GameUILayout>();
-        UIFeedback = GameObject.Find("GameFeel").GetComponent<GameFeedback>();
-
         // Chosing random player
         current_player = Random.Range(0, 1) == 0 ? player_1 : player_2;
     }
@@ -66,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         // TODO: Show PLAYER X DRINKS!!! 
         StartCoroutine("GetHit");
-      
+
 
         NextTurn();
 
@@ -76,8 +72,8 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Show You Missed Text
         StartCoroutine("GetMiss");
-       
-   
+
+
         Debug.Log("YOU MISSED LOOSER");
 
         NextTurn();
@@ -86,7 +82,7 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         // Check if the game is over
-        if(current_player.score >= MAX_SCORE)
+        if (current_player.score >= MAX_SCORE)
         {
             // TODO: Switch to Winner Scene!
 
@@ -110,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void SwitchCups(int player)
     {
-        if(player == 1)
+        if (player == 1)
         {
             cups_player_1.SetActive(true);
             cups_player_2.SetActive(false);
@@ -135,7 +131,7 @@ public class GameManager : MonoBehaviour
     {
         UIFeedback.hit_txt.enabled = true;
 
-        if(current_player == player_1)
+        if (current_player == player_1)
         {
             UIFeedback.hit_txt.text = "WELL DONE!\n PLAYER 2 DRINKS!";
         }
@@ -153,6 +149,7 @@ public class GameManager : MonoBehaviour
         UIFeedback.miss_txt.enabled = true;
         yield return new WaitForSeconds(3);
         UIFeedback.miss_txt.enabled = false;
+    }
     public void ShutSystemDown()
     {
         Debug.Log("Shutting System down");
@@ -165,3 +162,4 @@ public class GameManager : MonoBehaviour
         gameHolder.SetActive(true);
     }
 }
+
