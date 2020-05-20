@@ -1,5 +1,5 @@
 # AR Final Project - BEER PONG 
-A Beer Pong Game made with Unity & Vuforia from Aumented Reality assignment.
+A Beer Pong Game made with Unity & Vuforia from Aumented Reality assignment. You can check the final demo in **"Sebi_Scene"** scene.
 
 ## AR Resources
 ### Target 1
