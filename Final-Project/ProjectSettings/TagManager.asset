@@ -9,6 +9,8 @@ TagManager:
   - Cups
   - Game Manager
   - Lose Collider
+  - Character
+  - Cup Collider
   layers:
   - Default
   - TransparentFX

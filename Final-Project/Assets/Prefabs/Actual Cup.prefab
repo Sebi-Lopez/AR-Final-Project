@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 237814112145073587}
   m_Layer: 0
   m_Name: CupCollider
-  m_TagString: Untagged
+  m_TagString: Cup Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: fb79b7945bf509444b0d6d1b57f11e8b,
         type: 3}
       propertyPath: m_Name
-      value: cup_2
+      value: Actual Cup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb79b7945bf509444b0d6d1b57f11e8b, type: 3}
