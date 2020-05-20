@@ -28,14 +28,13 @@ public class GameManager : MonoBehaviour
 
     Player current_player;
 
-    GameUILayout UILayout;
-
+    public GameObject gameHolder;
+    public GameUILayout UILayout;
+    public GameObject ball; 
     public int MAX_SCORE = 8; 
 
     void Start()
     {
-        UILayout = GameObject.Find("Player Layout").GetComponent<GameUILayout>();
-
         // Chosing random player
         current_player = Random.Range(0, 1) == 0 ? player_1 : player_2;
     }
@@ -88,7 +87,8 @@ public class GameManager : MonoBehaviour
         UILayout.UpdateUILayout(current_player == player_1 ? 1 : 2, current_player.score, current_player.tex);
 
         // Reset Ball
-        GameObject.FindGameObjectWithTag("Ball").GetComponent<launchball>().ResetBall();
+        ball.SetActive(true); // First turn
+        ball.GetComponentInChildren<launchball>().ResetBall();
 
     }
 
@@ -101,4 +101,15 @@ public class GameManager : MonoBehaviour
         player_2.tex = tex2;
     }
 
+    public void ShutSystemDown()
+    {
+        Debug.Log("Shutting System down");
+        gameHolder.SetActive(false);
+    }
+
+    public void RestartSystem()
+    {
+        Debug.Log("Restarting System");
+        gameHolder.SetActive(true);
+    }
 }

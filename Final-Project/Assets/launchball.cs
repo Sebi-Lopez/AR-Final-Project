@@ -38,7 +38,9 @@ public class launchball : MonoBehaviour
 
     public void ThrowBall(Vector3 dir, int impulse = 1)
     {
-        //gameObject.transform.parent = null;
+        if(rigid_b == null)
+            rigid_b = gameObject.GetComponent<Rigidbody>();
+
         rigid_b.useGravity = true;
         //rigid_b.AddForce(Vector3.forward);
         rigid_b.AddForce(dir.x, dir.y, dir.z, ForceMode.Impulse);
@@ -47,7 +49,9 @@ public class launchball : MonoBehaviour
 
     public void ResetBall()
     {
-        //gameObject.transform.parent = GameObject.FindGameObjectWithTag("BallHolder").GetComponent<Transform>();
+        if (rigid_b == null)
+            rigid_b = gameObject.GetComponent<Rigidbody>();
+
         rigid_b.velocity = Vector3.zero;
         rigid_b.useGravity = false;
         rigid_b.MoveRotation(Quaternion.identity);
