@@ -20,48 +20,31 @@ public class SelectionManager : MonoBehaviour
     public Image bg;
     public Text[] txts;
     private int lastText = 0;
+
+    [Header("Game Canvas")]
+    public Canvas selection_canvas;
+    public Canvas game_canvas;
+
+    private GameManager GM;
+
+    [Header("Type Character")]
+    public int  char_type_1 = 0;
+    public int char_type_2 = 0;
+    private int current_type = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         bg.enabled = false;
-
+        game_canvas.enabled = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var ray2d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit hit;
-        RaycastHit2D hit2d = Physics2D.Raycast(ray2d, Vector2.zero);
-
-        if(hit2d.collider != null)
-        {
-            Debug.Log("Enters to character");
-            //var selection = hit2d.transform;
-
-            //if (selection.CompareTag("Character"))
-            //{
-            //    var image = selection.GetComponent<RawImage>();
-            //    player1.texture = image.texture;
-            //}
-        }
-
-
-        //if (Physics2D.Raycast(ray2d, Vector2.zero))
-        //{
-        //    Debug.Log("Detected GameObject");
-        //    var selection = hit.transform;
-        //    if(selection.CompareTag("Character"))
-        //    {
-        //        Debug.Log("Enters to character");
-        //        var image = selection.GetComponent<RawImage>();
-        //        player1.texture = image.texture;
-
-        //    }
-        //}
+       
     }
 
     public void SelectCharacter(Texture2D tex)
@@ -71,8 +54,6 @@ public class SelectionManager : MonoBehaviour
              player2.GetComponent<RawImage>().texture = tex;
         else
             player1.GetComponent<RawImage>().texture = tex;
-
-
   
     }
 
@@ -81,6 +62,7 @@ public class SelectionManager : MonoBehaviour
         firstSelected = true;
         bg.enabled = false;
         txts[lastText].enabled = false;
+        char_type_1 = current_type;
     }
 
     public void SelectedSecond()
@@ -88,13 +70,17 @@ public class SelectionManager : MonoBehaviour
         secondSelected = true; 
         bg.enabled = false;
         txts[lastText].enabled = false;
+        char_type_2 = current_type;
     }
 
     public void Fight()
     {
         if(firstSelected && secondSelected)
         {
-            Debug.Log("Enter to Drunking arena");
+            selection_canvas.enabled = false;
+            game_canvas.enabled = true;
+            GM.SetPlayersChars(char_type_1, char_type_2, (Texture2D)player1.texture, (Texture2D)player2.texture);
+            GM.NextTurn();
         }
     }
 
@@ -105,5 +91,10 @@ public class SelectionManager : MonoBehaviour
         txts[lastText].enabled = false;
         txts[index].enabled = true;
         lastText = index;
+    }
+
+    public void SetCharacterType(int type)
+    {
+        current_type = type; 
     }
 }
