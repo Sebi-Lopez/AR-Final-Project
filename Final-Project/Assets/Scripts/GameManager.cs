@@ -28,17 +28,25 @@ public class GameManager : MonoBehaviour
 
     Player current_player;
 
+    GameUILayout UILayout;
+
     public int MAX_SCORE = 8; 
 
     void Start()
     {
-        // TODO: Enable choose character menu
+        UILayout = GameObject.Find("Player Layout").GetComponent<GameUILayout>();
+
+        // Chosing random player
         current_player = Random.Range(0, 1) == 0 ? player_1 : player_2;
     }
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.H))
+            Hit();
+
+        if (Input.GetKeyDown(KeyCode.M))
+            Miss();
     }
 
     public void Hit()
@@ -47,7 +55,7 @@ public class GameManager : MonoBehaviour
         current_player.score++;
 
         // TODO: Update player UI score
-         
+        
         
         // TODO: Show PLAYER X DRINKS!!! 
 
@@ -76,8 +84,8 @@ public class GameManager : MonoBehaviour
         // Change current player
         current_player = current_player == player_1 ? player_2 : player_1;
 
-        // TODO: Update UI Layout
-            
+        // Update UI Layout
+        UILayout.UpdateUILayout(current_player == player_1 ? 1 : 2, current_player.score, current_player.tex);
 
         // TODO: Reset Ball
 
