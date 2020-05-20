@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
     GameUILayout UILayout;
     GameFeedback UIFeedback;
 
+    public GameObject gameHolder;
+    public GameUILayout UILayout;
+    public GameObject ball;
+    public GameObject cups_player_1;
+    public GameObject cups_player_2;
     public int MAX_SCORE = 8; 
 
     void Start()
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour
         // Add score
         current_player.score++;
 
+        Debug.Log("YOU HIT IT WINNER");
         // TODO: Update player UI score
 
         // TODO: Show PLAYER X DRINKS!!! 
@@ -95,8 +101,25 @@ public class GameManager : MonoBehaviour
         UILayout.UpdateUILayout(current_player == player_1 ? 1 : 2, current_player.score, current_player.tex);
 
         // Reset Ball
-        GameObject.FindGameObjectWithTag("Ball").GetComponent<launchball>().ResetBall();
+        ball.SetActive(true); // First turn
+        ball.GetComponentInChildren<launchball>().ResetBall();
 
+        // Switch cups after ball resets, if done before, it eats the others player cup
+        SwitchCups(current_player == player_1 ? 1 : 2);
+    }
+
+    private void SwitchCups(int player)
+    {
+        if(player == 1)
+        {
+            cups_player_1.SetActive(true);
+            cups_player_2.SetActive(false);
+        }
+        else
+        {
+            cups_player_1.SetActive(false);
+            cups_player_2.SetActive(true);
+        }
     }
 
     public void SetPlayersChars(int player1, int player2, Texture2D tex1, Texture2D tex2)
@@ -130,5 +153,15 @@ public class GameManager : MonoBehaviour
         UIFeedback.miss_txt.enabled = true;
         yield return new WaitForSeconds(3);
         UIFeedback.miss_txt.enabled = false;
+    public void ShutSystemDown()
+    {
+        Debug.Log("Shutting System down");
+        gameHolder.SetActive(false);
+    }
+
+    public void RestartSystem()
+    {
+        Debug.Log("Restarting System");
+        gameHolder.SetActive(true);
     }
 }
