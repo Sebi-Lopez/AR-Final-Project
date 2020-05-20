@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     enum CHAR
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
         public int score = 0;
         public CHAR character = CHAR.None;
         public Texture2D tex;
+        public string name;
     }
 
     Player player_1 = new Player();
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
 
 
         NextTurn();
-
+        
     }
 
     public void Miss()
@@ -85,7 +88,10 @@ public class GameManager : MonoBehaviour
         if (current_player.score >= MAX_SCORE)
         {
             // TODO: Switch to Winner Scene!
-
+            PlayerPrefs.SetString("Name", current_player == player_1 ? "player1": "player2");
+            PlayerPrefs.SetString("TexName", current_player.tex.name);
+            SceneManager.LoadScene("winscene", LoadSceneMode.Single);
+            
             Debug.Log("Game Over");
             return;
         }
@@ -161,5 +167,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Restarting System");
         gameHolder.SetActive(true);
     }
+
+
 }
 
