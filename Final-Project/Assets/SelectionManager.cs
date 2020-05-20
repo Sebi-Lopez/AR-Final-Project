@@ -25,9 +25,11 @@ public class SelectionManager : MonoBehaviour
     public Canvas selection_canvas;
     public Canvas game_canvas;
 
+    private GameManager GM;
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         bg.enabled = false;
         game_canvas.enabled = false;
 
@@ -46,8 +48,6 @@ public class SelectionManager : MonoBehaviour
              player2.GetComponent<RawImage>().texture = tex;
         else
             player1.GetComponent<RawImage>().texture = tex;
-
-
   
     }
 
@@ -71,6 +71,8 @@ public class SelectionManager : MonoBehaviour
         {
             selection_canvas.enabled = false;
             game_canvas.enabled = true;
+            GM.SetPlayersChars(0, 0);
+            GM.NextTurn();
         }
     }
 

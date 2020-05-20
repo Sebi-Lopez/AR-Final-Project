@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    enum CHAR
+    {
+        None = 0,
+        Ripoll,
+        Etepe, 
+        Simon,
+        Rivera, 
+        Negrazo,
+        Piter, 
+        Yikes
+    }
+
     class Player
     {
-        public int score = 0; 
-        // Character
+        public int score = 0;
+        public CHAR character = CHAR.None;
     }
 
     Player player_1 = new Player();
@@ -20,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // TODO: Enable choose character menu
-
+        current_player = Random.Range(0, 1) == 0 ? player_1 : player_2;
     }
 
     void Update()
@@ -33,8 +45,13 @@ public class GameManager : MonoBehaviour
         // Add score
         current_player.score++;
 
-        // TODO: Show PLAYERX DRINKS!!! 
+        // TODO: Update player UI score
+         
+        
+        // TODO: Show PLAYER X DRINKS!!! 
+
         NextTurn();
+
     }
 
     public void Miss()
@@ -49,6 +66,8 @@ public class GameManager : MonoBehaviour
         // Check if the game is over
         if(current_player.score >= MAX_SCORE)
         {
+            // TODO: Switch to Winner Scene!
+
             Debug.Log("Game Over");
             return;
         }
@@ -56,11 +75,18 @@ public class GameManager : MonoBehaviour
         // Change current player
         current_player = current_player == player_1 ? player_2 : player_1;
 
-        // TODO: Update Player UI 
-
+        // TODO: Update UI Layout
+            
 
         // TODO: Reset Ball
 
 
     }
+
+    public void SetPlayersChars(int player1, int player2)
+    {
+        player_1.character = (CHAR)player1;
+        player_2.character = (CHAR)player2;
+    }
+
 }
